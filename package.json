@@ -1,0 +1,29 @@
+{
+  "name": "rx-store",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "webpack --config ./config/webpack.config.dev.js",
+    "build:sample": "webpack --config ./config/webpack.config.sample.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ponday-dev/rx-store.git"
+  },
+  "author": "ponday-dev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ponday-dev/rx-store/issues"
+  },
+  "homepage": "https://github.com/ponday-dev/rx-store#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "rxjs": "^5.4.3",
+    "ts-loader": "^2.3.4",
+    "typescript": "^2.5.2",
+    "webpack": "^3.5.5"
+  }
+}
