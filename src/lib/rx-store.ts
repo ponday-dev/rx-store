@@ -65,9 +65,9 @@ export class Store {
         this.store[key] =  new State<T>(stateDef);
     }
 
-    select<T>(key: string): Observable<T> {
+    select<T>(key: string): State<T> {
         this.assertKey(key, false);
-        return this.store[key].observable$;
+        return this.store[key];
     }
 
     set(key: string, value: any) {

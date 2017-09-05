@@ -18,17 +18,18 @@ import { Store } from '../../lib/rx-store';
             }
         }
     });
+    const counter = store.select(STATE_COUNTER);
 
     function increment() {
-        store.dispatch(STATE_COUNTER, ACTION_INCREMENT);
+        counter.dispatch(ACTION_INCREMENT);
     }
 
     function decrement() {
-        store.dispatch(STATE_COUNTER, ACTION_DECREMENT);
+        counter.dispatch(ACTION_DECREMENT);
     }
 
     function reset() {
-        store.dispatch(STATE_COUNTER, ACTION_RESET);
+        counter.dispatch(ACTION_RESET);
     }
 
     let sub;
@@ -37,9 +38,10 @@ import { Store } from '../../lib/rx-store';
         document.getElementById('plus').addEventListener('click', increment);
         document.getElementById('reset').addEventListener('click', reset);
 
-        sub = store.select(STATE_COUNTER).subscribe(value => {
-            document.getElementById('counter').innerHTML = `${value}`;
-        });
+        sub = counter.observable$
+            .subscribe(value => {
+                document.getElementById('counter').innerHTML = `${value}`;
+            });
     });
 
     window.addEventListener('unload', () => {
