@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("rx-store", [], factory);
+	else if(typeof exports === 'object')
+		exports["rx-store"] = factory();
+	else
+		root["rx-store"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -6390,15 +6400,18 @@ exports.VirtualAction = VirtualAction;
 
 /***/ }),
 /* 69 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "State", function() { return State; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Store", function() { return Store; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-var rxjs_1 = __webpack_require__(70);
 var State = /** @class */ (function () {
     function State(stateDef) {
-        this.subject = new rxjs_1.ReplaySubject(1);
+        this.subject = new __WEBPACK_IMPORTED_MODULE_0_rxjs__["ReplaySubject"](1);
         this.allowSet = !stateDef.allowSet;
         this.actions = stateDef.actions || {};
         this.value = stateDef.value;
@@ -6432,7 +6445,7 @@ var State = /** @class */ (function () {
     };
     return State;
 }());
-exports.State = State;
+
 var Store = /** @class */ (function () {
     function Store(states) {
         if (states === void 0) { states = {}; }
@@ -6478,7 +6491,7 @@ var Store = /** @class */ (function () {
     };
     return Store;
 }());
-exports.Store = Store;
+
 function xor(x, y) {
     return (!x && y) || (x && !y);
 }
@@ -21434,3 +21447,4 @@ exports.AnimationFrameScheduler = AnimationFrameScheduler;
 
 /***/ })
 /******/ ]);
+});
