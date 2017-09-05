@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build:dev": "webpack --config ./config/webpack.config.dev.js",
-    "build:sample": "webpack --config ./config/webpack.config.sample.js"
+    "build:sample": "webpack --config ./config/webpack.config.sample.js",
+    "gen:declaration": "tsc -d ./src/lib/rx-store.ts --declarationDir ./dist/lib --target es2017"
   },
   "repository": {
     "type": "git",
