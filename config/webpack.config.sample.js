@@ -3,7 +3,8 @@ const baseConfig = require('./webpack.config.base');
 
 const sampleCofig = {
     entry: {
-        app: path.resolve(__dirname, '../src/sample/app.ts')
+        'ts/app': path.resolve(__dirname, '../src/sample/ts/app.ts'),
+        'js/app': path.resolve(__dirname, '../src/sample/js/app.js')
     },
     output: {
         path: path.join(__dirname, '..', 'dist', 'sample'),
