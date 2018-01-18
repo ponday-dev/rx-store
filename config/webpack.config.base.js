@@ -1,23 +1,25 @@
 const path = require('path');
 
 module.exports = {
-    resolve: {
-        extensions: [ '.js', '.ts' ],
-        alias: {
-            '~': path.join(__dirname, '..', 'src')
-        },
-    },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                use: [ 'babel-loader' ]
-            },
-            {
-                test: /\.ts$/,
-                // use: [ 'babel-loader', 'ts-loader' ]
-                use: [ 'ts-loader' ]
-            }
-        ]
-    }
+	entry: {
+		app: path.resolve(__dirname, '..', 'src', 'index.ts'),
+	},
+	output: {
+		path: path.join(__dirname, '..', 'dist'),
+		filename: '[name].js'
+	},
+	module: {
+		rules: [
+			{
+				test: /\.ts$/,
+				use: [ 'ts-loader' ]
+			}
+		]
+	},
+	resolve: {
+		extensions: [ '*', '.ts', '.js' ],
+		alias: {
+			'~': path.join(__dirname, '..', 'src')
+		}
+	}
 };

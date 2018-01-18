@@ -1,30 +1,34 @@
 {
-  "name": "rx-store",
-  "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "name": "simple-typescript-starter",
+  "version": "1.0.0",
+  "description": "Simple TypeScript develoment environment with webpack.",
+  "main": "index.ts",
   "scripts": {
-    "build:dev": "webpack --config ./config/webpack.config.dev.js",
-    "build:sample": "webpack --config ./config/webpack.config.sample.js",
-    "gen:declaration": "tsc -d ./src/lib/rx-store.ts --declarationDir ./dist/lib --target es2017"
+    "clean": "rimraf dist",
+    "build": "npm run clean | webpack",
+    "watch": "npm run clean | webpack -w"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ponday-dev/rx-store.git"
+    "url": "git+https://github.com/ponday-dev/simple-typescript-starter.git"
   },
-  "author": "ponday-dev",
-  "license": "MIT",
+  "keywords": [
+    "TypeScript",
+    "webpack"
+  ],
+  "author": "ponday",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ponday-dev/rx-store/issues"
+    "url": "https://github.com/ponday-dev/simple-typescript-starter/issues"
   },
-  "homepage": "https://github.com/ponday-dev/rx-store#readme",
+  "homepage": "https://github.com/ponday-dev/simple-typescript-starter#readme",
+  "dependencies": {
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  },
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.0",
-    "rxjs": "^5.4.3",
-    "ts-loader": "^2.3.4",
-    "typescript": "^2.5.2",
-    "webpack": "^3.5.5"
+    "lodash": "^4.17.4",
+    "rimraf": "^2.6.2"
   }
 }
