@@ -2,30 +2,39 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { map, distinctUntilChanged } from 'rxjs/operators';
 
+type Reduce<T> = (state: T, opt?: any) => T;
 export interface State {
     [key: string]: any;
-}
-export interface Reduce<T> {
-    (state: T, opt?: any): T;
 }
 export interface Reducer<T> {
     [key: string]: Reduce<T>;
 }
 
+type Handler = (state: any) => any;
+type Middleware = (next: Handler) => Handler;
+
 export class Store<T extends State> extends BehaviorSubject<T> {
 
     private reducer: Reducer<T>;
+    private handler: Handler;
 
-    constructor(init: { state: T, reducer?: Reducer<T> }) {
+    constructor(init: { state: T, reducer?: Reducer<T>, middlewares?: Middleware[] }) {
         super(init.state);
         this.reducer = init.reducer || {};
+        this.handler = init.middlewares.reduceRight(
+            (next: Handler, middleware: Middleware) => middleware(next),
+            state => {
+                this.next(state);
+                return state;
+            }
+        )
     }
 
     dispatch(key: string, opt?: any): void;
     dispatch(reduce: Reduce<T>, opt?: any): void;
 
     dispatch(keyOrReduce: string | Reduce<T>, opt?: any): void {
-        this.next(this.getReduce(keyOrReduce)(this.getValue(), opt));
+        this.handler(this.getReduce(keyOrReduce)(this.getValue(), opt));
     }
 
     private getReduce(keyOrReduce: string | Reduce<T>): Reduce<T> {
