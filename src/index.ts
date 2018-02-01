@@ -13,28 +13,31 @@ export interface Reducer<T> {
 type Handler = (state: any) => any;
 type Middleware = (next: Handler) => Handler;
 
-export class Store<T extends State> extends BehaviorSubject<T> {
+export class Store<T extends State> extends Observable<T> {
 
+    private store: BehaviorSubject<T>;
     private reducer: Reducer<T>;
     private handler: Handler;
 
     constructor(init: { state: T, reducer?: Reducer<T>, middlewares?: Middleware[] }) {
-        super(init.state);
+        super();
+        this.store = new BehaviorSubject<T>(init.state);
         this.reducer = init.reducer || {};
         this.handler = init.middlewares.reduceRight(
             (next: Handler, middleware: Middleware) => middleware(next),
             state => {
-                this.next(state);
+                this.store.next(state);
                 return state;
             }
-        )
+        );
+        this.source = this.store;
     }
 
     dispatch(key: string, opt?: any): void;
     dispatch(reduce: Reduce<T>, opt?: any): void;
 
     dispatch(keyOrReduce: string | Reduce<T>, opt?: any): void {
-        this.handler(this.getReduce(keyOrReduce)(this.getValue(), opt));
+        this.handler(this.getReduce(keyOrReduce)(this.store.getValue(), opt));
     }
 
     private getReduce(keyOrReduce: string | Reduce<T>): Reduce<T> {
@@ -48,7 +51,7 @@ export class Store<T extends State> extends BehaviorSubject<T> {
 
     select<R>(keyOrFilter: ((state: T) => R) | string): Observable<R> {
         const filterFn = this.getFilter(keyOrFilter);
-        return this.pipe(map(filterFn), distinctUntilChanged());
+        return this.store.pipe(map(filterFn), distinctUntilChanged());
     }
 
     private getFilter<R>(keyOrFilter: ((state: T) => R) | string): (state: T) => R {
